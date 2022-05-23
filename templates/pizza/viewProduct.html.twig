@@ -1,0 +1,51 @@
+{% extends 'basePizza.html.twig' %}
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4" id="cont">
+		<div class="row jumbotron">
+
+			
+
+			<div class="col-md-4">
+				<img src={{ asset(product.image) }} width="249px" height="262px">
+			</div>
+			<div class="col-md-8 my-4">
+				<h3>{{product.name}}</h3>
+				<h5 style="color: #ff0000">€ {{product.price}}</h5>
+				<p class="mb-0">{{product.description}}</p>
+                 {% if app.user %}<a href="{{ path('order', {id : product.id}) }}"> <button type="submit" name="addToCart" class="btn btn-primary my-2">Order</button></a>{% endif %}
+				{# <form action="Templates/_manageCart.php" method="POST">
+					<input type="hidden" name="itemId" value="'.$sushiId. '">
+					<button type="submit" name="addToCart" class="btn btn-primary my-2">Add to Cart</button>
+					<a href="viewCart.php">
+						<button class="btn btn-primary my-2">Go to Cart</button>
+					</a>
+					<button class="btn btn-primary my-2" data-toggle="modal" data-target="#loginModal">Add to Cart</button>
+
+				</form> #}
+				<h6 class="my-1">
+					View
+				</h6>
+                
+                
+				<div class="mx-4">
+					<a href="{{ path('show_category',{id : product.category.id},) }}" class="active text-dark">
+						<i class="fas fa-qrcode"></i>
+						<span>All Items</span>
+					</a>
+				</div>
+                
+				<div class="mx-4">
+					<a href="{{ path('pizza_homepage') }}" class="active text-dark">
+						<i class="fas fa-qrcode"></i>
+						<span>All Category</span>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

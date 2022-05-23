@@ -1,0 +1,53 @@
+{% extends 'basePizza.html.twig' %}
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+	<div>&nbsp;
+		<a href={{ path('pizza_homepage') }} class="active text-dark">
+			<i class="fas fa-qrcode"></i>
+			<span>All Category</span>
+		</a>
+	</div>
+	<div class="container my-3" id="cont">
+		<div class="col-lg-4 text-center bg-light my-3" style="margin:auto;border-top: 2px groove black;border-bottom: 2px groove black;">
+			<h2 class="text-center">
+				<span id="catTitle">{{ category.name }}</span>
+			</h2>
+		</div>
+		<div class="row">
+
+	{% for index, product in category.pizzas %}
+			<div class="col-xs-3 col-sm-3 col-md-3">
+				<div class="card" style="width: 18rem;">
+					<img src={{ asset(product.image) }} class="card-img-top" alt="image for this sushi" width="249px" height="270px">
+					<div class="card-body">
+						<h5 class="card-title"><a href={{ path('show_product',{id : product.id}) }}>{{product.name}} </a></h5>
+						<h6 style="color: #ff0000">€ {{product.price}}</h6>
+						<p class="card-text"> {{product.description}}</p>
+						<div class="row justify-content-center">
+				{% if app.user %}<a href="{{ path('order',{id : product.id}) }}"><button type="submit" name="addToCart" class="btn btn-primary mx-2">Order</button></a>{% endif %}
+							{# <form action="Templates/_manageCart.php" method="POST">
+								<input type="hidden" name="itemId" value="'.$sushiId. '">
+								<button type="submit" name="addToCart" class="btn btn-primary mx-2">Add to Cart</button>
+								<a href="viewCart.php"> 
+									<button class="btn btn-primary mx-2">Go to Cart</button>
+								</a>
+
+								<button class="btn btn-primary mx-2" data-toggle="modal" data-target="#loginModal">Add to Cart</button>
+							</form> #}
+							<a href={{ path('show_product', {id : product.id}) }} class="mx-2">
+								<button class="btn btn-primary">Quick View</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+{% endfor %}
+		</div>
+	</div>
+
+
+{% endblock %}

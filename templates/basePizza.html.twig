@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+		{% block stylesheets %}
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spartan&display=swap">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+			<link rel="stylesheet" href="{{ asset('css/pizza.css')}}">
+			<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="{{ path('pizza_homepage')}}">Pizza Sopranos</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('pizza_homepage')}}">Home
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('order_show')}}">Your Order</a>
+					</li>
+					{% endif %}
+					
+
+				</ul>
+				{# <a href="{{ path('cart') }}">
+					<button type="button" class="btn btn-primary mx-2" title="MyCart">
+						<svg xmlns="img/cart.svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewbox="0 0 16 16">
+							<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+						</svg>
+						<i class="bi bi-cart">Cart</i>
+					</button>
+				</a> #}
+				{% if app.user %}
+					<ul class="navbar-nav mr-2">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+								Welcome {{ app.user.username}}
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="{{ path('pizza_logout') }}">Logout</a>
+							</div>
+						</li>
+					</ul>
+				{% else %}
+					<a class="nav-link" href="{{ path('pizza_login') }}">
+						<button type="button" class="btn btn-primary mx-2" data-toggle="modal" data-target="#loginModal">Login</button>
+					</a>
+					<a class="nav-link" href="{{ path('pizza_registration') }}">
+						<button type="button" class="btn btn-primary mx-2" data-toggle="modal" data-target="#signupModal">SignUp</button>
+					</a>
+				{% endif %}
+
+
+			</nav>
+
+			{% block body %}{% endblock %}
+			<footer class="mt-5 p-3 text-center">
+				<div class="footer container-fluid bg-dark text-light">
+					<p class="text-center py-2 mb-0">Copyright © 2022 Designed by
+						<a href="#" rel="noopener noreferrer">@Alkatlabe</a>
+					</p>
+				</div>
+			</footer>
+			{% block javascripts %}
+				<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+				<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+				<script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
+				<script src="//code.jquery.com/jquery.js"></script>
+				<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+			{% endblock %}
+			{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+		</body>
+	</body>
+</html>
